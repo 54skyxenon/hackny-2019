@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  StatusBar,
   View,
 } from 'react-native';
 
@@ -72,15 +73,18 @@ export default class HomeScreen extends React.Component {
 
       return (
           <View style={styles.container}>
-
+            <StatusBar hidden />
             <SearchBar
-              placeholder="Find Nearest Relief..."
-              onChangeText={this.updateSearch}
-              value={search}
-              lightTheme
+                placeholder="Find Nearest Relief..."
+                onChangeText={this.updateSearch}
+                value={search}
+                style={{position: 'absolute'}}
+                lightTheme
             />
 
-            <MapView style={{flex: 1}} region={{latitude: this.state.latitude, longitude: this.state.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421}} showsUserLocation={true}/>
+            <MapView style={{flex: 1}}
+                     region={{latitude: this.state.latitude, longitude: this.state.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421}}
+                     showsUserLocation={true}/>
 
             <View style={styles.tabBarInfoContainer}>
               <Text style={styles.tabBarInfoText}>
@@ -106,13 +110,7 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  contentContainer: {
-    paddingTop: 20,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
+    backgroundColor: '#fff'
   },
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
