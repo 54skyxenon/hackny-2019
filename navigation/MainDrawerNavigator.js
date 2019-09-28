@@ -4,7 +4,6 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-//import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -34,23 +33,7 @@ HomeStack.navigationOptions = {
 };
 
 HomeStack.path = '';
-/*
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen,
-  },
-  config
-);
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
-};
-
-LinksStack.path = '';
-*/
 const SettingsStack = createStackNavigator(
   {
     Settings: SettingsScreen,
@@ -69,8 +52,7 @@ SettingsStack.path = '';
 
 const drawerNavigator = createDrawerNavigator({
   HomeStack,
-  //LinksStack,
-  SettingsStack,
+  SettingsStack
 });
 
 drawerNavigator.path = '';
