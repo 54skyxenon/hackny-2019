@@ -1,7 +1,7 @@
 node_modules/**/*
 .DS_Store
 .expo/*
-flask-backend/env/*
+flask-backend/env
 npm-debug.*
 *.jks
 *.p8
