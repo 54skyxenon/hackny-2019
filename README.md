@@ -4,7 +4,7 @@
 
 ### ReliefÜ is an on-demand bathroom rental service. If you are tired of not being able to find a nice bathroom to use when you are on the go, try ReliefÜ!
 
-More details can be found on our <a src="https://devpost.com/software/hackny-2019">devpost</a>.
+More details can be found on our <a href="https://devpost.com/software/hackny-2019">devpost</a>.
 
 ## Demo
 
