@@ -1,6 +1,7 @@
 from flask_assets import get_model
 from flask import Blueprint, redirect, render_template, request, url_for
-
+from flask import Response
+import json
 
 crud = Blueprint('crud', __name__)
 
@@ -59,3 +60,24 @@ def edit(id):
 def delete(id):
     get_model().delete(id)
     return redirect(url_for('.list'))
+
+
+@crud.route('/rjson', methods=['GET'])
+def api_hello():
+    # parsed_json = (json.loads('collection.json'))
+    # print(parsed_json)
+
+    d = {}
+
+    with open("collection.json") as f:
+        for line in f:
+            print(line)
+            js = json.dumps(line)
+            # (key, val) = line.split()
+            # d[int(key)] = val
+    # js = json.dumps(d)
+
+    resp = Response(js, status=200, mimetype='application/json')
+    resp.headers['Link'] = ''
+
+    return resp

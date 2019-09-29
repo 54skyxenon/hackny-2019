@@ -13,6 +13,7 @@ DATA_BACKEND = 'mongodb'
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
 PROJECT_ID = 'hackny-254317'
+# PROJECT_ID = 'relieveu'
 # Mongo configuration
 
 MONGO_URI = \
