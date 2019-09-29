@@ -2,6 +2,9 @@
 
 import * as WebBrowser from 'expo-web-browser';
 import React, { Component } from 'react';
+
+import * as DB from './database.json';
+
 import {
   Image,
   Platform,
@@ -21,11 +24,11 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { SearchBar, Icon } from 'react-native-elements';
 import MapView from 'react-native-maps';
+import EntryFlatlist from '../components/EntryFlatlist';
 
 import { EvilIcons } from 'react-native-vector-icons';
 
 export default class HomeScreen extends React.Component {
-<<<<<<< HEAD
     state = {
       location: null,
       errorMessage: null,
@@ -47,6 +50,13 @@ export default class HomeScreen extends React.Component {
         });
       } else {
         this._getLocationAsync();
+        var result = [];
+        for (var i in DB)
+        {
+            result.push(DB[i]);
+        }
+        result = result.slice(0, -1);;
+        this.setState({entries: result});
       }
     }
 
@@ -73,7 +83,7 @@ export default class HomeScreen extends React.Component {
           latitude: this.state.text.coords.latitude
         });
       }
-    };
+    }
 
     render()
     {
@@ -86,60 +96,6 @@ export default class HomeScreen extends React.Component {
       return (
           <View style={styles.container}>
             <SearchBar
-=======
-  state = {
-    location: null,
-    errorMessage: null,
-    text: 'Waiting..',
-    search: '',
-    longitude: 0,
-    latitude: 0
-  };
-
-  updateSearch = search => {
-    this.setState({ search });
-  };
-
-  componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      this._getLocationAsync();
-    }
-  }
-
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
-
-    if (this.state.errorMessage) {
-      this.setState({ text: this.state.errorMessage });
-    }
-    else if (this.state.location) {
-      this.setState({ text: this.state.location });
-      this.setState({
-        longitude: this.state.text.coords.longitude,
-        latitude: this.state.text.coords.latitude
-      });
-    }
-  };
-
-  render() {
-    const { search } = this.state;
-
-    return (
-      <View style={styles.container}>
-        {/* <SearchBar
->>>>>>> aa2043edc4c4cc5fc56993d017fa7eb1e71fac89
                 placeholder="Find Nearest Relief..."
                 onChangeText={this.updateSearch}
                 searchIcon={menuIcon}
@@ -158,17 +114,11 @@ export default class HomeScreen extends React.Component {
             />
 
             <View style={styles.tabBarInfoContainer}>
-              <ScrollView
-                style={styles.tabBarInfoText}
-                horizontal={true}
-              >
-
-              </ScrollView>
-            </View> */}
-
-      </View>
-    );
-  }
+                <EntryFlatlist entries={this.state.entries} />
+            </View>
+          </View>
+        );
+    }
 }
 
 HomeScreen.navigationOptions = {
@@ -180,14 +130,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: getStatusBarHeight()
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -202,19 +144,16 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
       },
       android: {
-        elevation: 20,
+        elevation: 0,
       },
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: Platform.OS === 'ios' ? '35%' : '20%',
+    paddingVertical: Platform.OS === 'ios' ? '35%' : '0%',
   },
   tabBarInfoText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
   }
 });
