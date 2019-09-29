@@ -6,7 +6,7 @@
 
 ## Demo
 
-<img src="assets/demo1.png" />
+<img src="assets/demo1.png" height=300 width=300 />
 
 ## Set up Flask backend: 
 `cd flask-backend`
