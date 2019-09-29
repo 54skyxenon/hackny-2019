@@ -1,4 +1,4 @@
-#!/root/HackNY/Tutorial/getting-started-python/2-structured-data/env/bin/python
+#!/Users/brandon/Desktop/hackny-2019/flask-backend/env/bin/python
 
 import sys
 import getopt

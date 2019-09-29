@@ -19,8 +19,10 @@ import Entry from '../components/Entry';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 import MapView from 'react-native-maps';
+
+import { EvilIcons } from 'react-native-vector-icons';
 
 export default class HomeScreen extends React.Component {
     state = {
@@ -29,7 +31,8 @@ export default class HomeScreen extends React.Component {
       text: 'Waiting..',
       search: '',
       longitude: 0,
-      latitude: 0
+      latitude: 0,
+      entries: []
     };
 
     updateSearch = search => {
@@ -74,14 +77,18 @@ export default class HomeScreen extends React.Component {
     render()
     {
       const { search } = this.state;
+      const menuIcon = <Icon
+                          name='navicon'
+                          type='evilicon'
+                          onPress={() => this.props.navigation.toggleDrawer()} />;
 
       return (
           <View style={styles.container}>
             <SearchBar
                 placeholder="Find Nearest Relief..."
                 onChangeText={this.updateSearch}
+                searchIcon={menuIcon}
                 value={search}
-                style={{position: 'absolute'}}
                 lightTheme
                 round
             />
