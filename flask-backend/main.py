@@ -1,8 +1,8 @@
-import bookshelf
+import flask_assets
 import config
 
 
-app = bookshelf.create_app(config)
+app = flask_assets.create_app(config)
 
 
 # This is only used when running locally. When running live, gunicorn runs
