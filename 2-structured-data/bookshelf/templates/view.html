@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Location</h3>
+
+<div class="btn-group">
+  <a href="/locations/{{location.id}}/edit" class="btn btn-primary btn-sm">
+    <i class="glyphicon glyphicon-edit"></i>
+    Edit Location
+  </a>
+  <a href="/locations/{{location.id}}/delete" class="btn btn-danger btn-sm">
+    <i class="glyphicon glyphicon-trash"></i>
+    Delete Location
+  </a>
+</div>
+
+<div class="media">
+  <div class="media-left">
+    <img class="Location-image" style="max-width: 200px" src={{location.Pic}}>
+  </div>
+  <div class="media-body">
+    <p>{{location.lat}}</p>
+    <p>{{location.Address}}</p>
+    <p>{{location.Name}}</p>
+    <p>{{location.Rating}}</p>
+    <p>{{location.Price}}</p>
+  </div>
+</div>
+
+{% endblock %}

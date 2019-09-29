@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Locations</h3>
+<a href="/locations/add" class="btn btn-success btn-sm">
+  <i class="glyphicon glyphicon-plus"></i>
+  Add Location
+</a>
+
+{% for location in locations %}
+<div class="media">
+  <a href="/locations/{{location.id}}">
+    <div class="media-left">
+      <img class="Location-image" style="max-width: 200px" src={{location.Pic}}>
+    </div>
+    <div class="media-body">
+      <p>{{location.lat}}</p>
+      <p>{{location.Address}}</p>
+      <p>{{location.Name}}</p>
+      <p>{{location.Rating}}</p>
+      <p>{{location.Price}}</p>
+    </div>
+  </a>
+</div>
+{% else %}
+<p>No Locations found</p>
+{% endfor %}
+
+{% if next_page_token %}
+<nav>
+  <ul class="pager">
+    <li><a href="?page_token={{next_page_token}}">More</a></li>
+  </ul>
+</nav>
+{% endif %}
+
+{% endblock %}
