@@ -19,10 +19,74 @@ import Entry from '../components/Entry';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 import MapView from 'react-native-maps';
 
+import { EvilIcons } from 'react-native-vector-icons';
+
 export default class HomeScreen extends React.Component {
+<<<<<<< HEAD
+    state = {
+      location: null,
+      errorMessage: null,
+      text: 'Waiting..',
+      search: '',
+      longitude: 0,
+      latitude: 0,
+      entries: []
+    };
+
+    updateSearch = search => {
+      this.setState({ search });
+    };
+
+    componentWillMount() {
+      if (Platform.OS === 'android' && !Constants.isDevice) {
+        this.setState({
+          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+        });
+      } else {
+        this._getLocationAsync();
+      }
+    }
+
+    _getLocationAsync = async () => {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+        });
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      this.setState({ location });
+
+      if (this.state.errorMessage)
+      {
+        this.setState({text: this.state.errorMessage});
+      }
+      else if (this.state.location)
+      {
+        this.setState({text: this.state.location});
+        this.setState({
+          longitude: this.state.text.coords.longitude,
+          latitude: this.state.text.coords.latitude
+        });
+      }
+    };
+
+    render()
+    {
+      const { search } = this.state;
+      const menuIcon = <Icon
+                          name='navicon'
+                          type='evilicon'
+                          onPress={() => this.props.navigation.toggleDrawer()} />;
+
+      return (
+          <View style={styles.container}>
+            <SearchBar
+=======
   state = {
     location: null,
     errorMessage: null,
@@ -75,10 +139,11 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         {/* <SearchBar
+>>>>>>> aa2043edc4c4cc5fc56993d017fa7eb1e71fac89
                 placeholder="Find Nearest Relief..."
                 onChangeText={this.updateSearch}
+                searchIcon={menuIcon}
                 value={search}
-                style={{position: 'absolute'}}
                 lightTheme
                 round
             />
