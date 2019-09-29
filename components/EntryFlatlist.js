@@ -3,31 +3,39 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
+import Entry from './Entry';
+import PropTypes from 'prop-types';
+
 export default class EntryFlatlist extends React.Component
 {
-	propTypes = {entries: PropTypes.array.isRequired}
-
 	render()
 	{
 		return (
-			<View style={styles.container}>
-				<FlatList
+			<FlatList
+					style={styles.container}
 					data={this.props.entries}
-					renderItem={({item}) => <Text style={styles.item}>{item.name}</Text>}
+					horizontal={true}
+					renderItem={({item}) => <Entry uid={item._id}
+					 															lat_long={item.lat}
+																				address={item.Address}
+																				name={item.Name}
+																				rating={item.Rating}
+																				price={item.Price}
+																				pic={item.Pic}
+																			/>}
 				/>
-			</View>
 		);
 	}
 }
 
+EntryFlatlist.propTypes = {entries: PropTypes.arrayOf(Entry)}
+
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 22
+   flex: 1
   },
   item: {
     padding: 10,
-    fontSize: 18,
-    height: 44,
+    fontSize: 15,
   },
 })
