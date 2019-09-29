@@ -1,5 +1,9 @@
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
+from bson.json_util import dumps
+import json
+from pymongo import MongoClient
+from bson import ObjectId
 
 
 builtin_list = list
@@ -35,14 +39,40 @@ def init_app(app):
     mongo.init_app(app)
 
 
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
+
 # [START list]
 def list(limit=10, cursor=None):
     cursor = int(cursor) if cursor else 0
 
+    client = MongoClient()
+    db = client.db_name
+    collection = db.collection_name
+
     results = mongo.db.locations.find(skip=cursor, limit=10).sort('Name')
+
+    cursor = collection.find({})
+    file = open("collection.json", "w")
+    # file.write('[')
+
     locations = builtin_list(map(from_mongo, results))
+    # print(type(locations))
+    # print(locations)
+    dictOfWords = {i: locations[i] for i in range(0, len(locations))}
+    l = JSONEncoder().encode(dictOfWords)
+    file.write(l)
+    # for item in locations:
+    #     file.write(json.dumps(locations))
+    #     file.write(',')
+    # file.write(']')
 
     next_page = cursor + limit if len(locations) == limit else None
+
     return (locations, next_page)
 # [END list]
 

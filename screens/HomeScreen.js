@@ -23,61 +23,58 @@ import { SearchBar } from 'react-native-elements';
 import MapView from 'react-native-maps';
 
 export default class HomeScreen extends React.Component {
-    state = {
-      location: null,
-      errorMessage: null,
-      text: 'Waiting..',
-      search: '',
-      longitude: 0,
-      latitude: 0
-    };
+  state = {
+    location: null,
+    errorMessage: null,
+    text: 'Waiting..',
+    search: '',
+    longitude: 0,
+    latitude: 0
+  };
 
-    updateSearch = search => {
-      this.setState({ search });
-    };
+  updateSearch = search => {
+    this.setState({ search });
+  };
 
-    componentWillMount() {
-      if (Platform.OS === 'android' && !Constants.isDevice) {
-        this.setState({
-          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-        });
-      } else {
-        this._getLocationAsync();
-      }
+  componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
     }
 
-    _getLocationAsync = async () => {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
-      if (status !== 'granted') {
-        this.setState({
-          errorMessage: 'Permission to access location was denied',
-        });
-      }
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
 
-      let location = await Location.getCurrentPositionAsync({});
-      this.setState({ location });
+    if (this.state.errorMessage) {
+      this.setState({ text: this.state.errorMessage });
+    }
+    else if (this.state.location) {
+      this.setState({ text: this.state.location });
+      this.setState({
+        longitude: this.state.text.coords.longitude,
+        latitude: this.state.text.coords.latitude
+      });
+    }
+  };
 
-      if (this.state.errorMessage)
-      {
-        this.setState({text: this.state.errorMessage});
-      }
-      else if (this.state.location)
-      {
-        this.setState({text: this.state.location});
-        this.setState({
-          longitude: this.state.text.coords.longitude,
-          latitude: this.state.text.coords.latitude
-        });
-      }
-    };
+  render() {
+    const { search } = this.state;
 
-    render()
-    {
-      const { search } = this.state;
-
-      return (
-          <View style={styles.container}>
-            <SearchBar
+    return (
+      <View style={styles.container}>
+        {/* <SearchBar
                 placeholder="Find Nearest Relief..."
                 onChangeText={this.updateSearch}
                 value={search}
@@ -102,10 +99,11 @@ export default class HomeScreen extends React.Component {
               >
 
               </ScrollView>
-            </View>
-          </View>
-        );
-    }
+            </View> */}
+
+      </View>
+    );
+  }
 }
 
 HomeScreen.navigationOptions = {
