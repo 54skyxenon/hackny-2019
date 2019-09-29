@@ -1,3 +1,5 @@
+// MainDrawerNavigator.js
+
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
@@ -50,10 +52,14 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
-const drawerNavigator = createDrawerNavigator({
-  HomeStack,
-  SettingsStack
-});
+const drawerNavigator = createDrawerNavigator(
+  {
+    Home: HomeStack,
+    Settings: SettingsStack,
+  },
+  {
+    initialRouteName: 'Home',
+  });
 
 drawerNavigator.path = '';
 
