@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div style="text-align: center">
+  <h2>Welcome to RelieveU where you can be one step closer to releif. Below is a list of locations available for relief.
+    If you have a location available for relief, please add it below. </h2>
+</div>
 
 <h3>Locations</h3>
 <a href="/locations/add" class="btn btn-success btn-sm">
@@ -15,11 +19,12 @@
       <img class="Location-image" style="max-width: 200px" src={{location.Pic}}>
     </div>
     <div class="media-body">
-      <p>{{location.lat}}</p>
-      <p>{{location.Address}}</p>
-      <p>{{location.Name}}</p>
-      <p>{{location.Rating}}</p>
-      <p>{{location.Price}}</p>
+      <p></p>
+      <p>Geograohic location: {{location.lat}}</p>
+      <p>Address: {{location.Address}}</p>
+      <p>Name: {{location.Name}}</p>
+      <p>Rating: {{location.Rating}}/5</p>
+      <p>Price: ${{location.Price}}</p>
     </div>
   </a>
 </div>
